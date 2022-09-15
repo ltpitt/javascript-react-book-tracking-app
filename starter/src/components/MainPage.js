@@ -12,21 +12,6 @@ const MainPage = ({ books }) => {
 
   const shelves = ["Currently reading", "Want to read", "Read"];
 
-  const currentlyReadingBooks = books.filter(
-    (book) =>
-      book.shelf.toLowerCase() === shelves[0].replace(/\s/g, "").toLowerCase()
-  );
-
-  const wantToReadBooks = books.filter(
-    (book) =>
-      book.shelf.toLowerCase() === shelves[1].replace(/\s/g, "").toLowerCase()
-  );
-
-  const readBooks = books.filter(
-    (book) =>
-      book.shelf.toLowerCase() === shelves[2].replace(/\s/g, "").toLowerCase()
-  );
-
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -34,9 +19,8 @@ const MainPage = ({ books }) => {
       </div>
 
       <div className="list-books-content">
-        <Bookshelf shelf={shelves[0]} books={currentlyReadingBooks} />
-        {shelves.forEach((s) => (
-          <Bookshelf shelf={s} books={currentlyReadingBooks} />
+        {shelves.map((shelf, index) => (
+          <Bookshelf key={index} shelf={shelf} books={books} />
         ))}
       </div>
 
