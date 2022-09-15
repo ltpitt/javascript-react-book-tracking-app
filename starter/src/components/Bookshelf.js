@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Book from "./Book";
 
 const Bookshelf = ({ books, shelf }) => {
+  console.log(books);
+
   const compareStringsToLowerCaseAndNoSpaces = (aString, bString) => {
     return toLowerCaseAndNoSpaces(aString) === toLowerCaseAndNoSpaces(bString);
   };
