@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import * as BooksAPI from "../utils/BooksAPI";
+
 const Book = (props) => {
   return (
     <li>
@@ -13,7 +16,10 @@ const Book = (props) => {
             }}
           ></div>
           <div className="book-shelf-changer">
-            <select>
+            <select
+              onChange={(e) => props.updateBook(props.book, e.target.value)}
+              value={props.currentShelf}
+            >
               <option value={props.shelf} disabled>
                 Move to...
               </option>

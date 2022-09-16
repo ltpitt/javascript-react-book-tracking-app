@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Bookshelf from "./Bookshelf";
 
-const MainPage = ({ books }) => {
+const MainPage = ({ books, updateBook }) => {
   const [showSearchPage, setShowSearchPage] = useState(false);
 
   const updateShowSearchPage = (state) => {
@@ -20,7 +20,12 @@ const MainPage = ({ books }) => {
 
       <div className="list-books-content">
         {shelves.map((shelf, index) => (
-          <Bookshelf key={index} shelf={shelf} books={books} />
+          <Bookshelf
+            key={index}
+            shelf={shelf}
+            books={books}
+            updateBook={updateBook}
+          />
         ))}
       </div>
 

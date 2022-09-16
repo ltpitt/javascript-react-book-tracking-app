@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Book from "./Book";
 
-const Bookshelf = ({ books, shelf }) => {
+const Bookshelf = ({ books, shelf, updateBook }) => {
   console.log(books);
 
   const compareStringsToLowerCaseAndNoSpaces = (aString, bString) => {
@@ -19,13 +19,20 @@ const Bookshelf = ({ books, shelf }) => {
       <h2 className="bookshelf-title">{shelf}</h2>;
       <div className="bookshelf-books">
         <ol className="books-grid">
-          {books
-            .filter((book) =>
-              compareStringsToLowerCaseAndNoSpaces(book.shelf, shelf)
-            )
-            .map((book) => (
-              <Book book={book} shelf={shelf} key={book.id} />
-            ))}
+          {books.length > 0
+            ? books
+                .filter((book) =>
+                  compareStringsToLowerCaseAndNoSpaces(book.shelf, shelf)
+                )
+                .map((book) => (
+                  <Book
+                    book={book}
+                    shelf={shelf}
+                    key={book.id}
+                    updateBook={updateBook}
+                  />
+                ))
+            : console.log("Empty bookshelf")}
         </ol>
       </div>
     </div>
