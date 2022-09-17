@@ -3,7 +3,7 @@ import { useState } from "react";
 import * as BooksAPI from "../utils/BooksAPI";
 import Book from "./Book";
 
-const SearchPage = ({ updateBook }) => {
+const SearchPage = ({ books, updateBook }) => {
   const [query, setQuery] = useState("");
   const [foundBooks, setFoundBooks] = useState("");
 
@@ -48,13 +48,15 @@ const SearchPage = ({ updateBook }) => {
       <div className="search-books-results">
         <ol className="books-grid">
           {foundBooks
-            ? foundBooks
-                .filter((book) => {
-                  return book.imageLinks.smallThumbnail ? true : false;
-                })
-                .map((book) => (
+            ? foundBooks.map((book) => {
+                const bookOnShelf = books.find((b) => b.id === book.id);
+                if (bookOnShelf) {
+                  book.shelf = bookOnShelf.shelf;
+                }
+                return (
                   <Book book={book} key={book.id} updateBook={updateBook} />
-                ))
+                );
+              })
             : console.log("No book found for query: " + query)}
         </ol>
       </div>

@@ -36,7 +36,10 @@ function App() {
         path="/"
         element={<MainPage books={books} updateBook={updateBook} />}
       />
-      <Route path="/search" element={<SearchPage updateBook={updateBook} />} />
+      <Route
+        path="/search"
+        element={<SearchPage books={books} updateBook={updateBook} />}
+      />
     </Routes>
   );
 }

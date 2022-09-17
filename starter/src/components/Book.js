@@ -1,4 +1,11 @@
 const Book = ({ book, updateBook }) => {
+  if (book.imageLinks) {
+  } else {
+    book["imageLinks"] = {
+      smallThumbnail: "https://via.placeholder.com/128x192.png",
+    };
+  }
+
   return (
     <li key={book.id}>
       <div className="book">
@@ -14,7 +21,7 @@ const Book = ({ book, updateBook }) => {
           <div className="book-shelf-changer">
             <select
               onChange={(e) => updateBook(book, e.target.value)}
-              defaultValue={book.shelf}
+              defaultValue={book.shelf || "none"}
             >
               <option disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
@@ -25,7 +32,9 @@ const Book = ({ book, updateBook }) => {
           </div>
         </div>
         <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.authors}</div>
+        <div className="book-authors">
+          {book.authors && book.authors.join(", ")}
+        </div>
       </div>
     </li>
   );
