@@ -1,16 +1,33 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import * as BooksAPI from "../utils/BooksAPI";
+import Book from "./Book";
 
-const SearchPage = () => {
+const SearchPage = ({ updateBook }) => {
   const [query, setQuery] = useState("");
+  const [foundBooks, setFoundBooks] = useState("");
 
   const updateQuery = (query) => {
-    setQuery(query);
-    console.log(query);
+    if (query.length > 0) {
+      const trimmedQuery = query.replace(/^\s+/, "");
+      setQuery(trimmedQuery);
+      searchBooks(query);
+    } else {
+      setQuery("");
+      setFoundBooks([]);
+    }
   };
 
-  const clearQuery = () => {
-    updateQuery("");
+  const searchBooks = (query, maxResults) => {
+    const findBooks = async (query, maxResults) => {
+      const result = await BooksAPI.search(query, maxResults);
+      if (result.error) {
+        setFoundBooks([]);
+      } else {
+        setFoundBooks(result);
+      }
+    };
+    findBooks(query, maxResults);
   };
 
   return (
@@ -29,7 +46,17 @@ const SearchPage = () => {
         </div>
       </div>
       <div className="search-books-results">
-        <ol className="books-grid"></ol>
+        <ol className="books-grid">
+          {foundBooks
+            ? foundBooks
+                .filter((book) => {
+                  return book.imageLinks.smallThumbnail ? true : false;
+                })
+                .map((book) => (
+                  <Book book={book} key={book.id} updateBook={updateBook} />
+                ))
+            : console.log("No book found for query: " + query)}
+        </ol>
       </div>
     </div>
   );

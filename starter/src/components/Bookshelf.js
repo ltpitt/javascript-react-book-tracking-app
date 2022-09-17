@@ -1,11 +1,6 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import Book from "./Book";
 
 const Bookshelf = ({ books, shelf, updateBook }) => {
-  console.log(books);
-
   const compareStringsToLowerCaseAndNoSpaces = (aString, bString) => {
     return toLowerCaseAndNoSpaces(aString) === toLowerCaseAndNoSpaces(bString);
   };
@@ -25,14 +20,9 @@ const Bookshelf = ({ books, shelf, updateBook }) => {
                   compareStringsToLowerCaseAndNoSpaces(book.shelf, shelf)
                 )
                 .map((book) => (
-                  <Book
-                    book={book}
-                    shelf={shelf}
-                    key={book.id}
-                    updateBook={updateBook}
-                  />
+                  <Book book={book} key={book.id} updateBook={updateBook} />
                 ))
-            : console.log("Empty bookshelf")}
+            : []}
         </ol>
       </div>
     </div>

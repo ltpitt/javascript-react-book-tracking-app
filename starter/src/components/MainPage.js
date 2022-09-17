@@ -1,15 +1,7 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Bookshelf from "./Bookshelf";
 
 const MainPage = ({ books, updateBook }) => {
-  const [showSearchPage, setShowSearchPage] = useState(false);
-
-  const updateShowSearchPage = (state) => {
-    setShowSearchPage(state);
-  };
-
   const shelves = ["Currently reading", "Want to read", "Read"];
 
   return (

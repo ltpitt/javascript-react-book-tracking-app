@@ -1,9 +1,6 @@
-import { useState, useEffect } from "react";
-import * as BooksAPI from "../utils/BooksAPI";
-
-const Book = (props) => {
+const Book = ({ book, updateBook }) => {
   return (
-    <li>
+    <li key={book.id}>
       <div className="book">
         <div className="book-top">
           <div
@@ -11,18 +8,15 @@ const Book = (props) => {
             style={{
               width: 128,
               height: 192,
-              backgroundImage:
-                "url(" + props.book.imageLinks.smallThumbnail + ")",
+              backgroundImage: "url(" + book.imageLinks.smallThumbnail + ")",
             }}
           ></div>
           <div className="book-shelf-changer">
             <select
-              onChange={(e) => props.updateBook(props.book, e.target.value)}
-              value={props.currentShelf}
+              onChange={(e) => updateBook(book, e.target.value)}
+              defaultValue={book.shelf}
             >
-              <option value={props.shelf} disabled>
-                Move to...
-              </option>
+              <option disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>
@@ -30,8 +24,8 @@ const Book = (props) => {
             </select>
           </div>
         </div>
-        <div className="book-title">{props.book.title}</div>
-        <div className="book-authors">{props.book.authors}</div>
+        <div className="book-title">{book.title}</div>
+        <div className="book-authors">{book.authors}</div>
       </div>
     </li>
   );
